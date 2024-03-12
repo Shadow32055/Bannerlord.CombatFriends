@@ -14,7 +14,7 @@ namespace CombatFriends.Patches
     internal class RelationGainSkillLevelPatch {
         [HarmonyPrefix]
         private static bool Prefix() {
-            if (!GlobalSettings<MCMSettings>.Instance.GiveCharmXP && CombatFriendsBehavior.Instance.RelationGainInProgress)
+            if (!CombatFriends.Settings.GiveCharmXP && CombatFriendsBehavior.Instance.RelationGainInProgress)
                 return false;
 
             return true;

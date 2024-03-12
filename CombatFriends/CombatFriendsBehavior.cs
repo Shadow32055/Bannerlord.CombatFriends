@@ -2,9 +2,6 @@
 using MCM.Abstractions.Base.Global;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapEvents;
@@ -12,10 +9,8 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 
-namespace CombatFriends
-{
+namespace CombatFriends {
     public class CombatFriendsBehavior : CampaignBehaviorBase {
         public static CombatFriendsBehavior Instance;
 
@@ -51,7 +46,7 @@ namespace CombatFriends
                     if (hero == Hero.MainHero)
                         continue;
 
-                    ChangeRelationAction.ApplyPlayerRelation(hero, MCMSettings.Instance.RelationGainTournamentWon, false, MCMSettings.Instance.RelationChangeNotifications);
+                    ChangeRelationAction.ApplyPlayerRelation(hero, CombatFriends.Settings.RelationGainTournamentWon, false, CombatFriends.Settings.RelationChangeNotifications);
                 }
             }
 
@@ -60,7 +55,7 @@ namespace CombatFriends
                 if (hero == Hero.MainHero)
                     continue;
 
-                ChangeRelationAction.ApplyPlayerRelation(hero, MCMSettings.Instance.RelationGainTournamentWon, false, MCMSettings.Instance.RelationChangeNotifications);
+                ChangeRelationAction.ApplyPlayerRelation(hero, CombatFriends.Settings.RelationGainTournamentWon, false, CombatFriends.Settings.RelationChangeNotifications);
             }
 
             // FOR CHARM XP GAIN REENABLING
@@ -75,13 +70,13 @@ namespace CombatFriends
             float x = 0f;
             mapEvent.GetBattleRewards(PartyBase.MainParty, out renownChange, out x, out x, out x, out x);
 
-            int relationChange = (int)Math.Round(renownChange * MCMSettings.Instance.RenownToRelationMult);
+            int relationChange = (int)Math.Round(renownChange * CombatFriends.Settings.RenownToRelationMult);
 
             // SET RELATION MIN/MAX
             if (relationChange < 0)
                 relationChange = 0;
-            else if (relationChange > MCMSettings.Instance.RelationChangeMax)
-                relationChange = MCMSettings.Instance.RelationChangeMax;
+            else if (relationChange > CombatFriends.Settings.RelationChangeMax)
+                relationChange = CombatFriends.Settings.RelationChangeMax;
 
             // FOR CHARM XP GAIN DISABLING
             RelationGainInProgress = true;
@@ -95,7 +90,7 @@ namespace CombatFriends
                     if (hero == Hero.MainHero)
                         continue;
 
-                    ChangeRelationAction.ApplyPlayerRelation(hero, relationChange, false, GlobalSettings<MCMSettings>.Instance.RelationChangeNotifications);
+                    ChangeRelationAction.ApplyPlayerRelation(hero, relationChange, false, CombatFriends.Settings.RelationChangeNotifications);
                 }
             }
 
